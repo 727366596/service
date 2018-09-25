@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+	  <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>客户列表</title>
+    <link rel="stylesheet" href="../../../../css/common/public.css" />
+    <script type="text/javascript" src="../../../../script/common/rem.js"></script>
+    <link rel="stylesheet" href="../../../../css/common/header_ph.css" />
+</head>
+<style>
+    body{
+      padding-top: 1.3rem;
+    }
+    .header_search_input_clearMsg{
+      position: absolute;
+      top: 0.3rem;
+      right: 1.0rem;
+      z-index: 999;
+      height: 0.4rem;
+      width: 0.4rem;
+      background-image: url("../../../../image/common/resend_password_emptyIcon.png");
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: 85% 85%;
+      display: none;
+    }
+    .headerSearchBox{
+      position: relative;
+      width:100%;
+      height:1.0rem;
+      /*background-color: rgba(0,0,0,0.2);*/
+      background-color: #fff;
+      padding: 0 0.5rem;
+    }
+    .headerSearchBox>input{border:solid 1px #e6a23c;
+      position: absolute;
+      left: 10%;
+      top: 0.2rem;
+      width: 80%;
+      height: 0.6rem;
+      border-radius: 0.6rem;
+      padding: 0 0.8rem;
+      line-height: 0.63rem;
+      text-align: center;
+      outline: none;
+      font-size: 0.28rem;font-family: PingFangSC-Regular, sans-serif;color: #999999;
+    }
+    .headerSearchBox>input.inputBc{
+      background-image: url("../../../../image/common/search_bc.png");
+      background-repeat: no-repeat;
+      background-position: 1.0rem 0.12rem;
+      background-size: 0.32rem 0.32rem;
+    }
+
+    input::-webkit-input-placeholder{
+        color: #999999;opacity:1;font-size: 0.28rem;
+    }
+    input::placeholder{
+        color: #999999;opacity:1;font-size: 0.28rem;
+    }
+
+</style>
+<body>
+     <div id="header">
+         <div class="headerLeft" onclick="back()"></div><!-- width:0; -->
+         <div class="headerCenter"><!-- width:80%;margin-left:0.3rem; -->
+             <!-- <span class="headerSearchBox" style="border: solid 1px blue;"><input type="text" class="inputBc" name="header_search_input" id="header_search_input" placeholder="请输入要搜索的客户名称"/><i id="clearMsg_btn" class="header_search_input_clearMsg"></i></span> -->
+             选择客户
+         </div>
+         <div class="headerRight"></div>
+     </div>
+     <span id="searchBox" class="headerSearchBox"><input type="text" class="inputBc" name="header_search_input" id="header_search_input" placeholder="请输入要搜索的客户名称"/><i id="clearMsg_btn" class="header_search_input_clearMsg"></i></span>
+
+</body>
+<script type="text/javascript" src="../../../../script/common/api.js"></script>
+<script type="text/javascript" src="../../../../script/common/jquery.min.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+        api.parseTapmode();
+        var header = $api.byId('header');
+        $api.fixStatusBar(header);
+        var headerPos = $api.offset(header);
+        var searchBox = $api.byId('searchBox');
+        var searchH = $api.offset(searchBox);
+        api.openFrame({
+            name: 'newly_companyList_frm',
+            url: './newly_companyList_frm.html',
+            bounces: true,
+            reload:true,
+            pageParam:api.pageParam.params,
+            rect: {
+                x: 0,
+                y: headerPos.h + searchH.h,
+                w: 'auto',
+                h: 'auto'
+            }
+        });
+        //搜索框监听
+        inputListen();
+        //frame页面选择公司后页面返回 并关闭
+        api.addEventListener({
+          name: 'selectCompany'
+        }, function (ret, err) {
+          back()
+        });
+    };
+
+    //监听input框
+    var inputListen = function (){
+        $('#header_search_input').focus(function(){
+            $(this).css({"border" : "solid 1px #60bc56"})
+        }).blur(function(){
+            $(this).css({"border" : "solid 1px #e6a23c"})
+        })
+        //监听软键盘回车事件
+        $('#header_search_input').bind('keypress', function(event) {   //回车事件绑定
+            if (event.keyCode == "13") {  //js监测到为为回车事件时 触发
+                event.preventDefault();   //阻止页面自动刷新，重复加载
+                var searchStr = $(this).val();
+                // if(searchStr == ""){
+                //     api.alert({msg: '请输入要搜索的客户名称'});
+                //     return;
+                // };
+                // api.execScript({
+                //     frameName: 'newly_companyList_frm',
+                //     script: 'dataHandle("'+ searchStr +'")'
+                // });
+                api.sendEvent({
+                  name: 'search',
+                  extra: {
+                    searchValue: searchStr
+                  }
+                });
+
+            }
+        });
+        //实时监听input框值变化
+        $("#header_search_input").bind("input propertychange", function(e){
+            var this_ = $(this);
+            if (e.type === "input" || e.orignalEvent.propertyName === "value") {
+                var strLength = this.value.length;
+                api.sendEvent({
+                  name: 'search',
+                  extra: {
+                    searchValue: this_.val()
+                  }
+                });
+                if(strLength > 0){
+                    this_.removeClass("inputBc");
+                    $("#clearMsg_btn").show().click(function(){
+                        this_.val("").addClass("inputBc");
+                        $(this).hide();
+                        api.sendEvent({
+                          name: 'search',
+                          extra: {
+                            searchValue: this_.val()
+                          }
+                        });
+                    });
+                }else {
+                    this_.addClass("inputBc");
+                    $("#clearMsg_btn").hide();
+                }
+
+            }
+        })
+    };
+
+  	//返回上一级********************************************************************
+  	function back() {
+  			api.closeWin();
+  	}
+</script>
+</html>
