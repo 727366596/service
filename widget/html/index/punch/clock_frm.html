@@ -1036,7 +1036,7 @@ var signCount = function signCount() {
   });
 };
 //点击拍照方法
-var getPicture = function getPicture() {alert(111)
+var getPicture = function getPicture() {
   var locationCurrent = $api.text($location);
   var lonInfo = $api.text($longitude);
   var latInfo = $api.text($latitude);
@@ -1096,7 +1096,7 @@ var delPic = function delPic() {
 var sFlag = false;
 //保存
 
-var save = function save() {alert(222)
+var save = function save() {
   var number = $api.text($number);
   if (number === '10') {
     api.alert({
