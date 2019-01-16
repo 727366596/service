@@ -17,7 +17,7 @@ var pds = (typeof this.pds === 'undefined') ? {} : this.pds;
 
 		// uat:"http://hfw.znphjf.com:8083/",
 		//uat:"http://dev.znphjf.com/",
-		uat:"http://192.168.30.134:18080/",
+		uat:"http://39.106.59.68:9999/",
 		release:"http://47.93.238.45/",
 		show:"http://ys.znphjf.com/",
 		app:"http://121.42.230.107:8089/",

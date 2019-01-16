@@ -2264,7 +2264,7 @@ exports.default = {
     var friDay = new Date(1000 * 60 * 60 * 24 * (5 - weekday) + today.getTime());
     var friDate = (0, _DateUtils.format)(friDay, 'yyyy-MM-dd');
     //  console.log('本周新数据' + thisWeekData + '下周新数据' + nextWeekData)
-    if (nowDate.replace(/-/g, "\/") >= friDate.replace(/-/g, "\/")) {
+    if ((nowDate.replace(/-/g, "\/") >= friDate.replace(/-/g, "\/"))) {
       //  	console.log('提交的数据'+JSON.stringify(param))
       _Ajax2.default.postJson('/weeklyBoth/save_weekly_remarks', param, function (res) {
         api.alert({

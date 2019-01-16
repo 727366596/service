@@ -14,7 +14,7 @@
    //var host = 'http://dev.znphjf.com/hfw/'  //测试
   //var host ='http://hfw.znphjf.com:8083/'//正式
   //var host = 'http://dev.znphjf.com/'
-  var host = 'http://192.168.30.134:18080/'
+  var host = 'http://39.106.59.68:9999/'
     var basePath = '/app'
 
     var debug = false; // 打印错误信息，false不打印

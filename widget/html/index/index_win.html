@@ -1131,30 +1131,68 @@ var init = function init() {
 								}
 						} else {
 								(0, _jq2.default)('.box').show();
-								if (data.role === '2') {
-										(0, _jq2.default)('.content').show();
-										(0, _jq2.default)('.item').hide();
-										(0, _jq2.default)('#punchCard').show();
-								}
-								if (data.role === '3') {
-										(0, _jq2.default)('.content').show();
-										(0, _jq2.default)('#agrochemicalService').hide();
-										(0, _jq2.default)('#visit').hide();
-								}
-								if (data.role === '1') {
-										(0, _jq2.default)('.content').show();
-										(0, _jq2.default)('#businessPromotion').hide();
-								}
-								if (data.role === '0') {
-										(0, _jq2.default)('.content').show();
-										(0, _jq2.default)('#reviewWeekly').hide();
-								}
+								//老版权限****************************************************
+								// if (data.role === '2') {
+								// 		(0, _jq2.default)('.content').show();
+								// 		(0, _jq2.default)('.item').hide();
+								// 		(0, _jq2.default)('#punchCard').show();
+								// }
+								// if (data.role === '3') {
+								// 		(0, _jq2.default)('.content').show();
+								// 		(0, _jq2.default)('#agrochemicalService').hide();
+								// 		(0, _jq2.default)('#visit').hide();
+								// }
+								// if (data.role === '1') {
+								// 		(0, _jq2.default)('.content').show();
+								// 		(0, _jq2.default)('#businessPromotion').hide();
+								// }
+								// if (data.role === '0') {
+								// 		(0, _jq2.default)('.content').show();
+								// 		(0, _jq2.default)('#reviewWeekly').hide();
+								// }
+								// if (data.modFlag === 'business') {
+								// 		if (data.role === '0') {
+								// 				(0, _jq2.default)('.content').show();
+								// 				(0, _jq2.default)('#agrochemicalService').hide();
+								// 				(0, _jq2.default)('#visit').hide();
+								// 				(0, _jq2.default)('#reviewWeekly').hide();
+								// 		}
+								// }
+
+								// 新版权限*****************************************************
 								if (data.modFlag === 'business') {
-										if (data.role === '0') {
+										if (data.role === '0') {//业务代表
 												(0, _jq2.default)('.content').show();
 												(0, _jq2.default)('#agrochemicalService').hide();
 												(0, _jq2.default)('#visit').hide();
 												(0, _jq2.default)('#reviewWeekly').hide();
+										}
+										if (data.role === '1') {//市场总监
+												(0, _jq2.default)('.content').show();
+												(0, _jq2.default)('#agrochemicalService').hide();
+												(0, _jq2.default)('#visit').hide();
+												(0, _jq2.default)('#businessPromotion').hide();
+										}
+										if (data.role === '3') {//大区经理
+												(0, _jq2.default)('.content').show();
+												(0, _jq2.default)('#agrochemicalService').hide();
+												(0, _jq2.default)('#visit').hide();
+										}
+								}
+								if (data.modFlag === 'che') {
+										if (data.role === '1') {//产品运营经理
+												(0, _jq2.default)('.content').show();
+												(0, _jq2.default)('#agrochemicalService').hide();
+												(0, _jq2.default)('#businessPromotion').hide();
+										}
+										if (data.role === '0') {//产品运营服务顾问
+												(0, _jq2.default)('.content').show();
+												(0, _jq2.default)('#agrochemicalService').hide();
+												(0, _jq2.default)('#reviewWeekly').hide();
+										}
+										if (data.role === '3') {//产品运营大区经理
+												(0, _jq2.default)('.content').show();
+												(0, _jq2.default)('#agrochemicalService').hide();
 										}
 								}
 						}

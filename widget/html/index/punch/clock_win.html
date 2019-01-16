@@ -2540,7 +2540,7 @@ window.punchRecord = function () {
 				},
 				reload: true
 			});
-		} else if (data.role === "1") {
+		} else if (data.role === "1" || data.role === "3") {
 			api.openWin({
 				name: "recordings_win",
 				url: "./recordings_win.html",
